@@ -51,6 +51,26 @@
 
 <p>Download and open the <a href="https://github.com/TVOHM/Robocup/zipball/master">SoccerAgent Solution</a></p>
 
+<h3>Getting Started</h3>
+
+<p>To start programming your agent, you need to modify MySoccerAgent.cs</p>
+
+<pre><code>namespace Robocup
+{
+    class MySoccerAgent : SoccerAgentBase
+    {
+        public override void SoccerAgentThink(PerceptorState state)
+        {
+            switch (mState)
+            {
+                case State.IDLE:
+                    break;
+            }
+        }
+    }
+}
+</code></pre>
+
 <h3>Welcome to GitHub Pages.</h3>
 
 <p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>

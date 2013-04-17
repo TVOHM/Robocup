@@ -55,20 +55,34 @@
 
 <p>To start programming your agent, you need to modify MySoccerAgent.cs</p>
 
-<pre><code>namespace Robocup
-{
-    class MySoccerAgent : SoccerAgentBase
+<pre><code>    class MySoccerAgent : SoccerAgentBase
     {
-        public override void SoccerAgentThink(PerceptorState state)
+        public override void SoccerAgentThink(PerceptorState perceptorState, AgentState agentState)
         {
-            switch (mState)
+            switch (agentState)
             {
-                case State.IDLE:
+                case AgentState.IDLE:
+                    // The agent is doing nothing.
+                    // Start a keyframe action - SetKeyFrame("kick");
+                    // Or tell the agent to walk - MoveTo(Landmark.FlagRightTop);
+                    break;
+                case AgentState.WALKING:
+                    // The agent is walking
+                    // You may update the walking target / behaviour MoveTo(perceptorState.BallPosition);
+                    // Stop the walk - MoveStop();
+                    // Or interrupt the walk by starting a keyframe action - SetKeyFrame("kick");
+                    break;
+                case AgentState.KEYFRAME:
+                    // The agent is performing a keyframe animation that was started by SetKeyFrame
+                    // You may not take any actions
+                    break;
+                case AgentState.AUTORIGHTING:
+                    // The agent has fallen over and is in the process of getting up
+                    // You may not take any actions
                     break;
             }
         }
     }
-}
 </code></pre>
 
 <h3>Welcome to GitHub Pages.</h3>

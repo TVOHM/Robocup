@@ -45,8 +45,6 @@
 
 <p>Install <a href="http://sourceforge.net/projects/simspark/files/rcssserver3d/0.6.5/rcssserver3d-0.6.5-win32.exe/download">rcssserver3d</a></p>
 
-<p>Modify setSenseMyPos in C:\Program Files (x86)\rcssserver3d 0.6.5\share\rcssserver3d\rsg\agent\nao from false to true.</p>
-
 <p>Install <a href="http://rubyforge.org/frs/download.php/76798/rubyinstaller-1.9.3-p392.exe">Ruby</a> (Check the option to add Ruby to PATH).</p>
 
 <p>Restart your machine</p>
@@ -57,35 +55,41 @@
 
 <p>To start programming your agent, you need to modify MySoccerAgent.cs</p>
 
-<pre><code>    class MySoccerAgent : SoccerAgentBase
-    {
-        public override void SoccerAgentThink(PerceptorState perceptorState, AgentState agentState)
-        {
-            switch (agentState)
-            {
-                case AgentState.IDLE:
-                    // The agent is doing nothing.
-                    // Start a keyframe action - SetKeyFrame("kick");
-                    // Or tell the agent to walk - MoveTo(Landmark.FlagRightTop);
-                    break;
-                case AgentState.WALKING:
-                    // The agent is walking
-                    // You may update the walking target / behaviour MoveTo(perceptorState.BallPosition);
-                    // Stop the walk - MoveStop();
-                    // Or interrupt the walk by starting a keyframe action - SetKeyFrame("kick");
-                    break;
-                case AgentState.KEYFRAME:
-                    // The agent is performing a keyframe animation that was started by SetKeyFrame
-                    // You may not take any actions
-                    break;
-                case AgentState.AUTORIGHTING:
-                    // The agent has fallen over and is in the process of getting up
-                    // You may not take any actions
-                    break;
-            }
-        }
-    }
-</code></pre>
+<div class="highlight"><pre><span class="c1">/// &lt;summary&gt;</span>
+<span class="c1">/// Called every time the agent 'thinks'</span>
+<span class="c1">/// &lt;/summary&gt;</span>
+<span class="c1">/// &lt;param name="perceptorState"&gt;What the agent can percieve (i.e landmarks, ball position etc&lt;/param&gt;</span>
+<span class="c1">/// &lt;param name="agentState"&gt;The current state of the agent (i.e. walking)&lt;/param&gt;</span>
+<span class="k">public</span> <span class="k">override</span> <span class="k">void</span> <span class="nf">SoccerAgentThink</span>
+    <span class="p">(</span><span class="n">PerceptorState</span> <span class="n">perceptorState</span><span class="p">,</span> <span class="n">AgentState</span> <span class="n">agentState</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// Choose an action based upon the agent state</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="n">agentState</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">case</span> <span class="n">AgentState</span><span class="p">.</span><span class="n">IDLE</span><span class="p">:</span>
+            <span class="c1">// The agent is doing nothing.</span>
+            <span class="c1">// You may start a keyframe action - SetKeyFrame("kick");</span>
+            <span class="c1">// Or tell the agent to walk - MoveTo(Landmark.FlagRightTop);</span>
+            <span class="c1">//mWalk.MoveTo(perceptorState, Body);</span>
+            <span class="c1">//SetKeyFrame("Fall_Forward"); </span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">AgentState</span><span class="p">.</span><span class="n">WALKING</span><span class="p">:</span>
+            <span class="c1">// The agent is walking</span>
+            <span class="c1">// You may update the walking behaviour - MoveTo(perceptorState.BallPosition);</span>
+            <span class="c1">// Stop the walk - MoveStop();</span>
+            <span class="c1">// Or interrupt the walk by starting a keyframe action - SetKeyFrame("kick");</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">AgentState</span><span class="p">.</span><span class="n">KEYFRAME</span><span class="p">:</span>
+            <span class="c1">// The agent is performing a keyframe animation that was started by SetKeyFrame</span>
+            <span class="c1">// You may not take any actions</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">case</span> <span class="n">AgentState</span><span class="p">.</span><span class="n">AUTORIGHTING</span><span class="p">:</span>
+            <span class="c1">// The agent has fallen over and is in the process of getting up</span>
+            <span class="c1">// You may not take any actions</span>
+            <span class="k">break</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
         </section>
 
         <footer>
